@@ -55,7 +55,19 @@ public class Book {
       this.qtyInStock = qtyInStock;
    }
 
+   public String getAuthorName() {
+      return this.author.getName();
+   }
+
+   public String getAuthorEmail() {
+      return this.author.getEmail();
+   }
+
+   public char getAuthorGender() {
+      return this.author.getGender();
+   }
+   
    public String toString() {
       return "'" + name +"' by " + author;
-   }
+   }   
 }
