@@ -40,11 +40,11 @@ public class MyComplex {
     }
 
     public boolean equals(double real, double imag) {
-        return (thix.real == real && this.imag = imag);
+        return (this.real == real && this.imag == imag);
     }
 
     public boolean equals(MyComplex another) {
-        return (thix.real == another.getReal() && this.imag = another.getImag());
+        return (real == another.getReal() && imag == another.getImag());
     }
 
     public double magnitude() {
@@ -56,7 +56,7 @@ public class MyComplex {
     }
 
     public int argumentInDegrees() {
-        
+        return 0;        
     }
 
     public MyComplex conjugate() {
@@ -73,18 +73,23 @@ public class MyComplex {
 
     public MyComplex multiplyWith(MyComplex another) {
         // (ac - bd) + (ad + bc)i
-        return new MyComplex(
-            real*another.getReal() - imag*another.getImag()
-        ,   real*another.getImag() + imag*another.getReal()
-        );
+        real = real*another.getReal() - imag*another.getImag();
+        imag = real*another.getImag() + imag*another.getReal();
+        return this;
     }
 
     public MyComplex divideBy(MyComplex another) {
         // [(a + bi) * (c – di)] / (c2 + d2)
-        
+        MyComplex tmp = multiplyWith(another.conjugate());
+        double delimiter = another.getReal()*another.getReal() + another.getImag()*another.getImag();
+        if (delimiter != 0) {
+            real = tmp.getReal() / delimiter;
+            imag = tmp.getImag() / delimiter;
+        }
+        return this;
     }
 
     public String toString() {
-        return "("+real " + "+ imag+"i)" ;
+        return "("+real +" + "+ imag+"i)" ;
     }
 }   
