@@ -44,7 +44,8 @@ public class MyComplex {
     }
 
     public boolean equals(MyComplex another) {
-        return (real == another.getReal() && imag == another.getImag());
+        double epsilon = 10E-8;
+        return (real - another.getReal() <= epsilon && imag - another.getImag() <= epsilon);
     }
 
     public double magnitude() {
