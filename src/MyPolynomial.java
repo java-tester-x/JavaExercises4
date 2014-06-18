@@ -51,6 +51,11 @@ public class MyPolynomial {
         return coeffs.length-1;
     }
 
+    /**
+     * [evaluate description]
+     * @param  x [description]
+     * @return   [description]
+     */
     public double evaluate(double x)
     {
         double sum  = 0.0;
@@ -62,16 +67,62 @@ public class MyPolynomial {
         return sum;
     }
 
+    /**
+     * [add description]
+     * @param  another [description]
+     * @return         [description]
+     */
     public MyPolynomial add(MyPolynomial another)
     {
-        
-        return this;
+        MyPolynomial result = this;
+        if (result.getDegree() < another.getDegree()) {
+            result  = another;
+            another = this;
+        }
+
+        double[] resultCoeffs  = result.getCoeffs();
+        double[] anotherCoeffs = another.getCoeffs();
+        for (int i = 0; i < resultCoeffs.length; i++)
+        {
+            if (i > anotherCoeffs.length-1) {
+                continue;
+            }
+            resultCoeffs[i] += anotherCoeffs[i];
+        }
+        return new MyPolynomial(resultCoeffs);
     }
 
-    public MyPolynomial multiply(MyPolynomial another) {
-        return this;
+    /**
+     * [multiply description]
+     * @param  another [description]
+     * @return         [description]
+     */
+    public MyPolynomial multiply(MyPolynomial another)
+    {
+        double[] resultCoeffs  = new double[this.getDegree() + another.getDegree()+1];
+        double[] anotherCoeffs = another.getCoeffs();
+        for (int i =0; i < resultCoeffs.length; i++)
+        {
+            double tmp = 0.0;
+            for (int j = 0; j <= i; j++)
+            {
+                if (j > coeffs.length-1) {
+                    continue;
+                }
+                if (i-j > anotherCoeffs.length-1) {
+                    continue;
+                }
+                tmp += coeffs[j] * anotherCoeffs[i-j];
+            }
+            resultCoeffs[i] = tmp;
+        }
+        return new MyPolynomial(resultCoeffs);
     }
 
+    /**
+     * [toString description]
+     * @return [description]
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = coeffs.length-1; i >= 0; i--) {
