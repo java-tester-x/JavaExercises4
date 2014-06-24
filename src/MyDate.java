@@ -20,15 +20,16 @@ public class MyDate {
         setDate(year, month, day);
     }
 
-    public boolean isLeapYear(int year) {
+    public static boolean isLeapYear(int year) {
         return false;
     }
 
-    public boolean isValidDate(int year, int month, int day) {
+    public static boolean isValidDate(int year, int month, int day) {
+        // Between 1 to 9999
         return false;
     }
 
-    public int getDayOfWeek(int year, int month, int day) {
+    public static int getDayOfWeek(int year, int month, int day) {
         return 0;
     }
 
@@ -39,27 +40,37 @@ public class MyDate {
     }
 
     public int getYear() {
-        return year;
+        return this.year;
     }
 
     public int getMonth() {
-        return month;
+        return this.month;
     }
 
     public int getDay() {
-        return day;
+        return this.day;
     }
 
-    public void setYear() {
-        // 
+    public void setYear(int year) {
+        if (year < 1 || year > 9999) {
+            throw new IllegalArgumentException("Invalid year!");
+        }
+        this.year = year;
     }
 
-    public void setMonth() {
-        // 
+    public void setMonth(int month) {
+        if (month < 1 || month > 12) {
+            throw new IllegalArgumentException("Invalid month!");
+        }
+        this.month = month;
     }
 
-    public void setDay() {
-        // 
+    public void setDay(int day) {
+        int monthDay = 31; 
+        if (day < 1 || day > monthDay) {
+            throw new IllegalArgumentException("Invalid day!");
+        }
+        this.day = day;
     }
 
     public MyDate nextDay() {
