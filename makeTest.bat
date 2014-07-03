@@ -1,0 +1,1 @@
+javac -cp .;lib/junit-4.11.jar -d bin %1
