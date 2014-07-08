@@ -129,19 +129,47 @@ public class MyDate {
     }
 
     public MyDate nextDay() {
-        return this;
+        try {
+            setDay(day+1);
+            return this;
+        }
+        catch (IllegalArgumentException e) {}
+        
+        setDay(1);
+        return nextMonth();
     }
 
     public MyDate nextMonth() {
-        return this;
+        try {
+            setMonth(month+1);
+            return this;
+        }
+        catch (IllegalArgumentException e) {}
+        
+        setMonth(1);
+        return nextYear();
     }
 
     public MyDate nextYear() {
+        try {
+            setYear(year+1);
+            return this;
+        }
+        catch (IllegalArgumentException e) {}
+        
+        setYear(1);
         return this;
     }
 
     public MyDate previousDay() {
-        return this;
+        try {
+            setDay(day-1);
+            return this;
+        }
+        catch (IllegalArgumentException e) {}
+        
+        setDay(1);
+        return nextMonth();
     }
 
     public MyDate previousMonth() {
@@ -158,5 +186,18 @@ public class MyDate {
     public String toString() {
         int weekDay = getDayOfWeek(year, month, day);
         return String.format("%1$s %2$d %3$s %4$d", strDays[weekDay], day, strMonths[month-1], year);
+    }
+
+    @Override
+    public boolean equals(Object other)
+    {
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof MyDate)) return false;
+    
+        MyDate otherMyDate = (MyDate) other;
+        return (this.year  == otherMyDate.getYear())
+            && (this.month == otherMyDate.getMonth())
+            && (this.day   == otherMyDate.getDay());
     }
 }   
