@@ -23,6 +23,9 @@ public class MyDate {
     private static final int[] nonLeapYearMonthNumbers = {0, 3, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5};    
     private static final int[] leapYearMonthNumbers    = {6, 2, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5};
 
+    private boolean isPreviousDayOperation   = false;
+    private boolean isPreviousMonthOperation = false;
+
 
     public MyDate(int year, int month, int day) {
         setDate(year, month, day);
@@ -39,11 +42,16 @@ public class MyDate {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
+
+    public static int getMonthLastDay(int year, int month) {
+        return daysInMonths[month-1] + (isLeapYear(year) && month == 2 ? 1 : 0 );
+    }
+
     public static boolean isValidDate(int year, int month, int day) {
-        int dayMax = daysInMonths[month-1] + (isLeapYear(year) && month == 2 ? 1 : 0 );
+        // int dayMax = daysInMonths[month-1] + (isLeapYear(year) && month == 2 ? 1 : 0 );
         return (MIN_YEAR  <= year   && year  <= MAX_YEAR)
             && (MIN_MONTH <= month  && month <= MAX_MONTH)
-            && (1         <= day    && day   <= dayMax);
+            && (1         <= day    && day   <= getMonthLastDay(year, month));
     }
 
     /**
@@ -121,62 +129,124 @@ public class MyDate {
 
     public void setDay(int day) 
     {
-        int dayMax = daysInMonths[month-1] + (isLeapYear(year) && month == 2 ? 1 : 0 );
-        if (day < 1 || day > dayMax) {
+        // int dayMax = daysInMonths[month-1] + (isLeapYear(year) && month == 2 ? 1 : 0 );
+        if (1 > day || day > getMonthLastDay(this.year, this.month)) {
             throw new IllegalArgumentException("Invalid day!");
         }
         this.day = day;
     }
 
-    public MyDate nextDay() {
-        try {
-            setDay(day+1);
+    public MyDate nextDay()
+    {
+        int maxDay = getMonthLastDay(year, month);
+        if (maxDay == day && MAX_MONTH == month && MAX_YEAR == year) {
             return this;
         }
-        catch (IllegalArgumentException e) {}
-        
-        setDay(1);
-        return nextMonth();
-    }
 
-    public MyDate nextMonth() {
-        try {
-            setMonth(month+1);
+        if (maxDay == day && MAX_MONTH == month) {
+            setDate(year+1, MIN_MONTH, 1);
             return this;
         }
-        catch (IllegalArgumentException e) {}
-        
-        setMonth(1);
-        return nextYear();
-    }
 
-    public MyDate nextYear() {
-        try {
-            setYear(year+1);
+        if (maxDay == day) {
+            setDate(year, month+1, 1);
             return this;
         }
-        catch (IllegalArgumentException e) {}
         
-        setYear(1);
+        setDate(year, month, day+1);
         return this;
     }
 
-    public MyDate previousDay() {
-        try {
-            setDay(day-1);
+    public MyDate nextMonth()
+    {
+        if (MAX_MONTH == month && MAX_YEAR == year) {
             return this;
         }
-        catch (IllegalArgumentException e) {}
-        
-        setDay(1);
-        return nextMonth();
-    }
 
-    public MyDate previousMonth() {
+        int maxDay = (MAX_MONTH == month)
+                ?   getMonthLastDay(year+1, MIN_MONTH)
+                :   getMonthLastDay(year, month+1);
+
+        if (day == getMonthLastDay(year, month)) {
+            maxDay = maxDay;
+        }
+        else if (day > maxDay) {
+            maxDay = maxDay;
+        }
+        else if (day < maxDay) {
+            maxDay = day;
+        }
+
+        if (MAX_MONTH == month) {
+            setDate(year+1, MIN_MONTH, maxDay);
+            return this;
+        }
+
+        setDate(year, month+1, maxDay);
         return this;
     }
 
-    public MyDate previousYear() {
+    public MyDate nextYear()
+    {
+        if (MAX_YEAR == year) {
+            return this;
+        }
+
+        int maxDay = getMonthLastDay(year+1, month);
+        maxDay = ( day > maxDay ) ? maxDay : day;
+        setDate(year+1, month, maxDay);
+        return this;
+    }
+
+    public MyDate previousDay()
+    {
+        if (1 == day && MIN_MONTH == month && MIN_YEAR == year) {
+            return this;
+        }
+
+        if (1 == day && MIN_MONTH == month) {
+            setDate(year-1, MAX_MONTH, getMonthLastDay(year-1, MAX_MONTH));
+            return this;
+        }
+
+        if (1 == day) {
+            setDate(year, month-1, getMonthLastDay(year, month-1));
+            return this;
+        }
+        
+        setDate(year, month, --day);
+        return this;
+    }
+
+    public MyDate previousMonth()
+    {
+        if (MIN_MONTH == month && MIN_YEAR == year) {
+            return this;
+        }
+
+        int maxDay;
+        if (MIN_MONTH == month) {
+            maxDay = getMonthLastDay(year-1, MAX_MONTH);
+            maxDay = ( day > maxDay ) ? maxDay : day;
+            setDate(year-1, MAX_MONTH, maxDay);
+            return this;
+        }
+
+        maxDay = getMonthLastDay(year, month-1);
+        maxDay = ( day > maxDay ) ? maxDay : day;
+        setDate(year, month-1, maxDay);
+        return this;
+    }
+
+    public MyDate previousYear()
+    {
+        if (MIN_YEAR == year) {
+            return this;
+        }
+
+        int maxDay = getMonthLastDay(year-1, month);
+        maxDay = ( day > maxDay ) ? maxDay : day;
+        setDate(year-1, month, maxDay);
         return this;
     }
 

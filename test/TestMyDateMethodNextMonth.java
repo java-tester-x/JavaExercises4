@@ -24,13 +24,13 @@ public class TestMyDateMethodNextMonth {
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][] {
                 { new MyDate(2013, 12, 31), new MyDate(2014, 1, 31) }
-            ,   { new MyDate(2012, 1, 30), new MyDate(2012, 2, 29) }
-            ,   { new MyDate(2012, 1, 31), new MyDate(2012, 2, 29) }
-            ,   { new MyDate(2012, 2, 28), new MyDate(2012, 3, 28) }
-            ,   { new MyDate(2012, 2, 29), new MyDate(2012, 3, 31) }
-            ,   { new MyDate(2014, 5, 31), new MyDate(2014, 6, 30) }
-            ,   { new MyDate(2014, 7, 4), new MyDate(2014, 8, 4) }
-            ,   { new MyDate(2014, 6, 30), new MyDate(2014, 7, 31) }
+            ,   { new MyDate(2012, 1, 30),  new MyDate(2012, 2, 29) }
+            ,   { new MyDate(2012, 1, 31),  new MyDate(2012, 2, 29) }
+            ,   { new MyDate(2012, 2, 28),  new MyDate(2012, 3, 28) }
+            ,   { new MyDate(2012, 2, 29),  new MyDate(2012, 3, 31) }
+            ,   { new MyDate(2014, 5, 31),  new MyDate(2014, 6, 30) }
+            ,   { new MyDate(2014, 7, 4),   new MyDate(2014, 8, 4) }
+            ,   { new MyDate(2014, 6, 30),  new MyDate(2014, 7, 31) }
         });
     }
 
