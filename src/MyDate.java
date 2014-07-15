@@ -193,7 +193,17 @@ public class MyDate {
         }
 
         int maxDay = getMonthLastDay(year+1, month);
-        maxDay = ( day > maxDay ) ? maxDay : day;
+
+        if (day == getMonthLastDay(year, month)) {
+            maxDay = maxDay;
+        }
+        else if (day > maxDay) {
+            maxDay = maxDay;
+        }
+        else if (day < maxDay) {
+            maxDay = day;
+        }
+
         setDate(year+1, month, maxDay);
         return this;
     }
@@ -224,16 +234,25 @@ public class MyDate {
             return this;
         }
 
-        int maxDay;
+        int maxDay = (MIN_MONTH == month)
+                ?   getMonthLastDay(year-1, MAX_MONTH)
+                :   getMonthLastDay(year, month-1);
+
+        if (day == getMonthLastDay(year, month)) {
+            maxDay = maxDay;
+        }
+        else if (day > maxDay) {
+            maxDay = maxDay;
+        }
+        else if (day < maxDay) {
+            maxDay = day;
+        }
+
         if (MIN_MONTH == month) {
-            maxDay = getMonthLastDay(year-1, MAX_MONTH);
-            maxDay = ( day > maxDay ) ? maxDay : day;
             setDate(year-1, MAX_MONTH, maxDay);
             return this;
         }
 
-        maxDay = getMonthLastDay(year, month-1);
-        maxDay = ( day > maxDay ) ? maxDay : day;
         setDate(year, month-1, maxDay);
         return this;
     }
@@ -245,7 +264,17 @@ public class MyDate {
         }
 
         int maxDay = getMonthLastDay(year-1, month);
-        maxDay = ( day > maxDay ) ? maxDay : day;
+
+        if (day == getMonthLastDay(year, month)) {
+            maxDay = maxDay;
+        }
+        else if (day > maxDay) {
+            maxDay = maxDay;
+        }
+        else if (day < maxDay) {
+            maxDay = day;
+        }
+
         setDate(year-1, month, maxDay);
         return this;
     }
