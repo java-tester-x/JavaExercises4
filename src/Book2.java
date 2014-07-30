@@ -11,22 +11,22 @@ package src;
  * The source codes for Circle is as follows:
  */
 
-public class Book {
+public class Book2 {
    
    private String   name;
    private double   price;
-   private Author   author;
+   private Author[] authors;
    private int      qtyInStock = 0;
 
-   public Book (String name, Author author, double price) {
+   public Book2(String name, Author[] authors, double price) {
       this.name    = name;
-      this.author  = author;
+      this.authors = authors;
       this.price   = price;
    }
 
-   public Book (String name, Author author, double price, int qtyInStock) {
+   public Book2(String name, Author[] authors, double price, int qtyInStock) {
       this.name       = name;
-      this.author     = author;
+      this.authors    = authors;
       this.price      = price;
       this.qtyInStock = qtyInStock;
    }
@@ -35,12 +35,12 @@ public class Book {
       return this.name;
    }
 
-   public Author getAuthor() {
-      return this.author;
-   }
-
    public double getPrice() {
       return this.price;
+   }
+
+   public Author[] getAuthors() {
+      return this.authors;
    }
 
    public void setPrice(double price) {
@@ -55,19 +55,14 @@ public class Book {
       this.qtyInStock = qtyInStock;
    }
 
-   public String getAuthorName() {
-      return this.author.getName();
-   }
-
-   public String getAuthorEmail() {
-      return this.author.getEmail();
-   }
-
-   public char getAuthorGender() {
-      return this.author.getGender();
+   public void printAuthors() {
+      int authorNo = 0;
+      for (Author a : this.authors) {
+         System.out.println("("+(++authorNo)+") "+a);
+      }
    }
 
    public String toString() {
-      return "'" + name +"' by " + author;
+      return "'" + name +"' by " + authors.length + " authors";
    }   
 }
