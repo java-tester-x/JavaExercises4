@@ -11,55 +11,51 @@ package src;
  * The source codes for Circle is as follows:
  */
 
-public class Circle {
-   // private instance variable, not accessible from outside this class
-   private double radius;
-   private String color;
-   
-   // 1st constructor, which sets both radius and color to default
-   public Circle() {
-      this.radius = 1.0;
-      this.color  = "red";
-   }
-   
-   // 2nd constructor with given radius, but color default
-   public Circle(double radius) {
-      this.radius = radius;
-      this.color  = "red";
-   }
+public class Circle extends Shape {
+    // private instance variable, not accessible from outside this class
+    private double radius;
 
-   // Construtor to construct a new instance of Circle with the given radius and color
-   public Circle (double radius, String color) {
-      this.radius = radius;
-      this.color  = color;
-   }
-   
-   // A public method for retrieving the radius
-   public double getRadius() {
-     return radius; 
-   }
-   
-   // A public method for computing the area of circle
-   public double getArea() {
-      return radius*radius*Math.PI;
-   }
+    // 1st constructor, which sets both radius and color to default
+    public Circle() {
+        super();
+        this.radius = 1.0;
+    }
 
-   // Getter for instance variable color
-   public String getColor() {
-      return color;
-   }
+    // 2nd constructor with given radius, but color default
+    public Circle(double radius) {
+        super();
+        this.radius = radius;
+    }
 
-   // Setter for instance variable radius
-   public void setRadius(double radius) {
-      this.radius = radius;
-   }
-    
-   // Setter for instance variable color
-   public void setColor(String color) {
-      this.color = color;
-   }
+    // Construtor to construct a new instance of Circle with the given radius and color
+    public Circle (double radius, String color) {
+        this(radius);
+        setColor(color);
+    }
 
-   public String toString() {
-      return "Circle: radius=" + radius + " color=" + color;
-   }
+    public Circle (double radius, String color, boolean filled) {
+        this(radius, color);
+        setFilled(filled);
+    }
+
+    // A public method for retrieving the radius
+    public double getRadius() {
+        return radius; 
+    }
+
+    // A public method for computing the area of circle
+    public double getArea() {
+        return radius*radius*Math.PI;
+    }
+
+    // Setter for instance variable radius
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public String toString() {
+        return "A Circle with radius = "+radius
+             + ", which is a subclass of "+super.toString();
+    }
 }

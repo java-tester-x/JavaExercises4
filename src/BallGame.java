@@ -13,6 +13,8 @@ public class BallGame extends JFrame {
     // public static final int CANVAS_WIDTH  = 800;
     // public static final int CANVAS_HEIGHT = 600;
     
+    private String title      = "Ball Game";
+    
     private int canvasWidth   = 800;
     private int canvasHeight  = 600;
 
@@ -20,19 +22,21 @@ public class BallGame extends JFrame {
 
     private DrawCanvas canvas;
     private Ball ball;
+    private Ball ball2;
     private BallContainer box;
 
     public BallGame() {
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
 
-        Container cp = getContentPane();
-        cp.setLayout(new BorderLayout());
-        cp.add(canvas, BorderLayout.CENTER);
+        // Container cp = getContentPane();
+        // cp.setLayout(new BorderLayout());
+        // cp.add(canvas, BorderLayout.CENTER);
+        setContentPane(canvas);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();  // pack all the components in this JFrame
-        setTitle("Ball Game");
+        setTitle(title);
         setVisible(true);  // show this JFrame
 
         initGame();
@@ -41,17 +45,18 @@ public class BallGame extends JFrame {
 
     public void initGame()
     {
-        ball = new Ball(50, 50, 10, 5, 30);
-        box  = new BallContainer(0, 0, canvasWidth, canvasHeight);
+        ball  = new Ball(50, 50, 10, 5, 30);
+        ball2 = new Ball(50, 50, 30, 15, 60);
+        box   = new BallContainer(0, 0, canvasWidth, canvasHeight);
 
         // Handling window resize.
         canvas.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                Component c = (Component)e.getSource();
+                Component c   = (Component)e.getSource();
                 Dimension dim = c.getSize();
-                canvasWidth = dim.width;
-                canvasHeight = dim.height;
+                canvasWidth   = dim.width;
+                canvasHeight  = dim.height;
                 // Adjust the bounds of the container to fill the window
                 box.set(0, 0, canvasWidth, canvasHeight);
             }
@@ -63,9 +68,12 @@ public class BallGame extends JFrame {
             {
                 while (true)
                 {
-                    ball.move();
                     box.collidesWith(ball);
-
+                    ball.move();
+                    
+                    box.collidesWith(ball2);
+                    ball2.move();
+                    
                     // Refresh the display
                     repaint(); // Callback paintComponent()
                     
@@ -86,14 +94,16 @@ public class BallGame extends JFrame {
     class DrawCanvas extends JPanel {
         @Override
         public void paintComponent(Graphics g) {  // invoke via repaint()
-            super.paintComponent(g);    // fill background
-            setBackground(Color.LIGHT_GRAY); // set its background color
+            super.paintComponent(g); 
+
+            setBackground(Color.LIGHT_GRAY);
             g.setColor(Color.WHITE); 
 
             ball.draw(g);
+            ball2.draw(g);
 
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.drawString(ball.toString(), ball.getX()+2*ball.getRadius(), ball.getY());
+            // Graphics2D g2d = (Graphics2D) g;
+            // g2d.drawString(ball.toString(), ball.getX()+2*ball.getRadius(), ball.getY());
         }
 
         @Override
