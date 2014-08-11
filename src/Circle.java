@@ -43,14 +43,18 @@ public class Circle extends Shape {
         return radius; 
     }
 
+    // Setter for instance variable radius
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
     // A public method for computing the area of circle
     public double getArea() {
         return radius*radius*Math.PI;
     }
 
-    // Setter for instance variable radius
-    public void setRadius(double radius) {
-        this.radius = radius;
+    public double getPerimeter() {
+        return 2 * radius * Math.PI;
     }
 
     @Override
