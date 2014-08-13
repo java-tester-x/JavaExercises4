@@ -17,50 +17,68 @@ public class MyLineSub extends MyPoint2 {
         this.end = end;
     }
 
-    // Inherits methods getX() and getY() from superclass Point
+    @Override
     public String toString() {
-        return "Line: ("+super.getX()+", "+super.getY()+") - ("
+        return "Line: ("+getX()+", "+getY()+") - ("
             +  end.getX()+", "+end.getY() +")";
     }
 
     public MyPoint2 getBegin() {
-        return super;
+        return new MyPoint2(getX(), getY());
     }    
     public MyPoint2 getEnd() {
         return end;
     }
     
     public void setBegin(MyPoint2 begin) {
-        super.setXY(begin.getX(), begin.getY());
+        this.setXY(begin.getX(), begin.getY());
     }    
     public void setEnd(MyPoint2 end) {
         this.end.setXY(end.getX(), end.getY());
     }
 
     public int getBeginX() {
+        return getX();
     }
     public int getBeginY() {
+        return getY();
     }
     public int getEndX() {
+        return end.getX();
     }
     public int getEndY() {
+        return end.getY();
     }
 
-    public void setBeginX(...) {
+    public void setBeginX(int x) {
+        setX(x);
     }
-    public void setBeginY(...) {
+    public void setBeginY(int y) {
+        setY(y);
     }
-    public void setBeginXY(...) {
+    public void setBeginXY(int x, int y) {
+        setXY(x, y);
     }
-    public void setEndX(...) {
+
+    public void setEndX(int x) {
+        end.setX(x);
     }
-    public void setEndY(...) {
+    public void setEndY(int y) {
+        end.setY(y);
     }
-    public void setEndXY(...) {
+    public void setEndXY(int x , int y) {
+        end.setXY(x, y);
     }
 
     public int getLength() {
-    }       // Length of the line
+        int xDiff = getEndX() - getBeginX();
+        int yDiff = getEndY() - getBeginY();
+        return (int) Math.sqrt(xDiff*xDiff + yDiff*yDiff);
+    }
+
     public double getGradient() {
-    }  // Gradient in radians
+        int xDiff = getEndX() - getBeginX();
+        int yDiff = getEndY() - getBeginY();
+        return Math.atan2(yDiff, xDiff);
+    }
 }
