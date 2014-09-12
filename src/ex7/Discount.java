@@ -12,7 +12,7 @@ public class Discount
     private static double productDiscountPremium = 0.1;
     private static double productDiscountGold    = 0.1;
     private static double productDiscountSilver  = 0.1;
-    
+
     public static double getServiceDiscountRate(String type) {
         switch(type.toUpperCase()) {
             case "PREMIUM": return serviceDiscountPremium;
