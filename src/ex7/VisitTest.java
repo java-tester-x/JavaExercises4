@@ -1,22 +1,21 @@
+package src.ex7;
 
-
-import static org.junit.Assert.*;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.Ignore;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
- * The test class CustomerTest.
- *
- * @author  (your name)
- * @version (a version number or a date)
+ * The test class VisitTest.
  */
-public class CustomerTest
+public class VisitTest
 {
     /**
-     * Default constructor for test class CustomerTest
+     * Default constructor for test class VisitTest
      */
-    public CustomerTest()
+    public VisitTest()
     {
     }
 

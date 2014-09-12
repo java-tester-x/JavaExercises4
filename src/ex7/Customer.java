@@ -1,3 +1,4 @@
+package src.ex7;
 
 /**
  * The Discount System: Customer.
@@ -22,7 +23,7 @@ public class Customer
     }
     
     public void setMember(boolean member) {
-        this.member= member;
+        this.member = member;
     }
     
     public String getMemberType() {
